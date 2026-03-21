@@ -1,0 +1,92 @@
+[
+  {
+    "doc_id": "corrective_retrieval_augmented_generation_2024",
+    "corpus": "main",
+    "local_path": "data/raw/main/corrective_retrieval_augmented_generation_2024.pdf",
+    "source_url": "https://arxiv.org/abs/2401.15884",
+    "title": "Corrective Retrieval Augmented Generation",
+    "year": 2024,
+    "page_count": 16
+  },
+  {
+    "doc_id": "retrievalqa_2024",
+    "corpus": "main",
+    "local_path": "data/raw/main/retrievalqa_2024.pdf",
+    "source_url": "https://arxiv.org/abs/2402.16457",
+    "title": "RetrievalQA: Assessing Adaptive Retrieval-Augmented Generation for Short-form Open-Domain Question Answering",
+    "year": 2024,
+    "page_count": 13
+  },
+  {
+    "doc_id": "ragchecker_2024",
+    "corpus": "main",
+    "local_path": "data/raw/main/ragchecker_2024.pdf",
+    "source_url": "https://arxiv.org/abs/2408.08067",
+    "title": "RAGChecker: A Fine-grained Framework for Diagnosing Retrieval-Augmented Generation",
+    "year": 2024,
+    "page_count": 27
+  },
+  {
+    "doc_id": "raft_domain_specific_rag_2024",
+    "corpus": "main",
+    "local_path": "data/raw/main/raft_domain_specific_rag_2024.pdf",
+    "source_url": "https://arxiv.org/abs/2403.10131",
+    "title": "RAFT: Adapting Language Model to Domain Specific RAG",
+    "year": 2024,
+    "page_count": 12
+  },
+  {
+    "doc_id": "engineering_rag_systems_2025",
+    "corpus": "main",
+    "local_path": "data/raw/main/engineering_rag_systems_2025.pdf",
+    "source_url": "https://arxiv.org/abs/2506.20869",
+    "title": "Engineering RAG Systems for Real-World Applications: Design, Development, and Evaluation",
+    "year": 2025,
+    "page_count": 16
+  },
+  {
+    "doc_id": "policy_document_rag_2026",
+    "corpus": "main",
+    "local_path": "data/raw/main/policy_document_rag_2026.pdf",
+    "source_url": "https://arxiv.org/abs/2601.15457",
+    "title": "Chunking, Retrieval, and Re-ranking: An Empirical Evaluation of RAG Architectures for Policy Document Question Answering",
+    "year": 2026,
+    "page_count": 5
+  },
+  {
+    "doc_id": "topochunker_2026",
+    "corpus": "main",
+    "local_path": "data/raw/main/topochunker_2026.pdf",
+    "source_url": "https://arxiv.org/abs/2603.18409",
+    "title": "TopoChunker: Topology-Aware Agentic Document Chunking Framework",
+    "year": 2026,
+    "page_count": 14
+  },
+  {
+    "doc_id": "reason_and_verify_rag_2026",
+    "corpus": "main",
+    "local_path": "data/raw/main/reason_and_verify_rag_2026.pdf",
+    "source_url": "https://arxiv.org/abs/2603.10143",
+    "title": "Reason and Verify: A Framework for Faithful Retrieval-Augmented Generation",
+    "year": 2026,
+    "page_count": 13
+  },
+  {
+    "doc_id": "beyond_relevance_rag_coverage_2026",
+    "corpus": "main",
+    "local_path": "data/raw/main/beyond_relevance_rag_coverage_2026.pdf",
+    "source_url": "https://arxiv.org/abs/2603.08819",
+    "title": "Beyond Relevance: On the Relationship Between Retrieval and RAG Information Coverage",
+    "year": 2026,
+    "page_count": 11
+  },
+  {
+    "doc_id": "ragalyst_2025",
+    "corpus": "main",
+    "local_path": "data/raw/main/ragalyst_2025.pdf",
+    "source_url": "https://arxiv.org/abs/2511.04502",
+    "title": "RAGalyst: Automated Human-Aligned Agentic Evaluation for Domain-Specific RAG",
+    "year": 2025,
+    "page_count": 16
+  }
+]
