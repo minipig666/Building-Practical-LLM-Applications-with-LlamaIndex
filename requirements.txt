@@ -1,3 +1,4 @@
+gradio
 PyYAML
 tiktoken
 llama-index==0.14.18
