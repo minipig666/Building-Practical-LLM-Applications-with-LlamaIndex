@@ -7,8 +7,15 @@ from llama_index.core.llms.callbacks import llm_completion_callback
 from llama_index.core.base.llms.types import LLMMetadata
 from typing import Any
 
+from transformers import AutoModelForSeq2SeqLM, pipeline
+
 from scripts.embedding_utils import TransformersBgeEmbedding
 import config
+
+import os
+#os.environ["NO_PROXY"] = "localhost,127.0.0.1"          # 禁止代理干扰本地Ollama
+#os.environ["HF_ENDPOINT"] = "https://hf-mirror.com"     # HuggingFace 国内镜像，解决下载超时
+os.environ["TRANSFORMERS_VERBOSITY"] = "error"         # 减少无用日志
 
 class FlanT5LLM(CustomLLM):
     pipe: Any = None
@@ -42,12 +49,15 @@ class ModelDeploymentManager:
 
         if model_type == "mistral":
             from llama_index.llms.ollama import Ollama
-            llm = Ollama(model=config.MISTRAL_MODEL)
+            llm = Ollama(model=config.MISTRAL_MODEL
+                            ,request_timeout = 300.0
+                            #,base_url = "http://localhost:11434"
+                         )
             print(">> Backend: Mistral-7B")
 
         elif model_type == "t5":
             if not self.t5_pipe:
-                self.t5_pipe = pipeline("text2text-generation", model=config.T5_MODEL, device_map="auto")
+                self.t5_pipe = pipeline("text-generation", model=config.T5_MODEL, model_class=AutoModelForSeq2SeqLM, device_map="auto")
             llm = FlanT5LLM(pipe=self.t5_pipe)
             print(">> Backend: FLAN-T5-Base")
 
