@@ -138,3 +138,173 @@ For full loading and retrieval examples, see:
 ## Deliverable Status
 
 This package is intended as the current handoff-ready baseline for the data-engineering stage.
+
+## 5. Application Integration & Quick Start (Full RAG System)
+
+This section describes how to integrate the data package with the full RAG QA system, including model deployment, index loading, and web UI startup.
+
+## 5.1 Project Structure (Full System)
+
+```
+rag-paper-qa/
+├── app.py                  # Web UI entry (Gradio)
+├── manager.py              # Model deployment & LLM manager
+├── engine.py               # RAG index query engine
+├── config.py               # Global model & path config
+├── rebuild_index.py        # Index rebuild script (fix dimension mismatch)
+├── requirements.txt         # Full dependencies
+│
+├── data/                   # Provided data package
+├── scripts/                # Provided data utilities
+└── docs/
+```
+
+## 5.2 Core Configuration Files
+
+### `config.py` (Global System Config)
+
+```
+import torch
+
+DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
+
+# LLM Models
+MISTRAL_MODEL = "mistral:7b-instruct-v0.2-q4_K_M"
+T5_MODEL = "google/flan-t5-base"
+
+# Index Paths
+INDEX_PATH_256 = "data/indexes/index_main_256"
+INDEX_PATH_512 = "data/indexes/index_main_512"
+DEFAULT_INDEX_DIR = INDEX_PATH_256
+SIMILARITY_TOP_K = 3
+```
+
+### `manager.py` (Model Manager)
+
+Manages embedding model loading and LLM backend switching:
+
+- Embedding: `TransformersBgeEmbedding` (matches data package)
+- LLMs: Mistral (Ollama) / Flan-T5 (local pipeline)
+- Dimension alignment: 768-dim for index compatibility
+
+### `engine.py` (RAG Query Engine)
+
+Loads pre-built indexes and supports:
+
+- Similarity retrieval
+- Question answering
+- Source evidence return
+
+## Full Environment Setup
+
+Install required packages (using Tsinghua mirror for stability):
+
+```
+pip install --upgrade pip
+pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
+pip install llama-index-llms-ollama gradio -i https://pypi.tuna.tsinghua.edu.cn/simple
+```
+
+### Install Ollama (for Mistral 7B)
+
+```
+# Linux/Mac
+curl -fsSL https://ollama.com/install.sh | sh
+ollama pull mistral:7b-instruct-v0.2-q4_K_M
+# Windows download .exe file from https://ollama.com/download
+ollama pull mistral:7b-instruct-v0.2-q4_K_M
+```
+
+## 5.4 Critical Step: Rebuild Index (Fix Dimension Mismatch)
+
+The original indexes use fixed embedding dimensions. Run this **once** to rebuild compatible indexes:
+
+```
+python rebuild_index.py
+```
+
+This ensures embedding dimension alignment (768 ↔ 768) and eliminates:
+
+```
+ValueError: shapes (384,) and (768,) not aligned
+```
+
+## 5.5 Launch Web UI
+
+```
+python app.py
+```
+
+Open your browser:
+
+- http://127.0.0.1:7865
+
+## 5.6 Web UI Features
+
+- Dual LLM support: `mistral` / `t5`
+- Dual chunk sizes: `256` / `512`
+- Real-time answer generation
+- Full source evidence display
+- Offline keyword retrieval fallback
+
+## 5.7 Example Questions
+
+- What is the role of the retriever in RAG?
+- How does CRAG correct hallucinations?
+- What is the difference between DPR and BM25?
+- What are the key components of a practical RAG system?
+
+## 5.8 Troubleshooting
+
+### 1. ModuleNotFoundError: `llama_index.llms.ollama`
+
+```
+pip install llama-index-llms-ollama
+```
+
+### 2. Dimension mismatch: `shapes (384,)` & `(768,)`
+
+Run index rebuild:
+
+```
+python rebuild_index.py
+```
+
+### 3. Hugging Face connection timeout
+
+Use offline local retrieval mode or check network.
+
+### 4. Index failed to load
+
+Ensure `data/indexes/` exists and run `rebuild_index.py`.
+
+## 5.9 Full System Workflow
+
+1. Load embedding model (from `scripts/embedding_utils.py`)
+2. Load rebuilt vector index
+3. Accept user question via web UI
+4. Retrieve relevant chunks
+5. Generate answer using selected LLM
+6. Display answer + source evidence
+
+## 5.10 Notes for Developers
+
+- Do NOT modify `scripts/embedding_utils.py`
+- Use `index_main_256` for speed, `index_main_512` for context
+- Fallback to local JSONL retrieval if models are unavailable
+- All data remains strictly within the 10 arXiv paper corpus
+
+------
+
+## 6. Final System Summary
+
+This full RAG QA system integrates:
+
+- Cleaned & chunked paper corpus
+- Persisted vector indexes
+- Custom embedding class
+- Dual LLM backends
+- Interactive web UI
+- Full source attribution
+
+The system is ready for deployment, evaluation, and extension.
